@@ -174,7 +174,7 @@ curl http://localhost:8080
 [Postgres - Official Image | Docker Hub](https://hub.docker.com/_/postgres)
 
 ```bash
-cd '2. Dockercompose'
+cd '2. Dockercompose + docker hub'
 docker-compose up
 # Terminate
 docker-compose down
@@ -215,29 +215,15 @@ exit
 —> ubuntu/nginx
 
 ```bash
-# ---------------------------------------------------------------------------- #
-#                             More layer dockerfile                            #
-# ---------------------------------------------------------------------------- #
-FROM ubuntu/nginx:latest
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install vim -y
-RUN apt-get install net-tools -y
-RUN apt-get install dnsutils -y
-# first built 28.409 sec
-
-# ---------------------------------------------------------------------------- #
-#                             Less layer dockerfile                            #
-# ---------------------------------------------------------------------------- #
-# FROM ubuntu/nginx:latest
-# ENV DEBIAN_FRONTEND=noninteractive
-# RUN apt-get update -y && apt-get upgrade -y && apt-get install --no-install-recommends vim net-tools dnsutils -y
-# first built 23.042 sec
+docker system prune --all --force
+echo "Docker more layer"
+time docker build -t demo -f Dockerfile.more-layers .
+docker system prune --all --force
+echo "Docker less layer"
+time docker build -t demo -f Dockerfile.less-layers .
 ```
 
 ```bash
-docker build -t demo .
 docker run -p 8080:80 demo
 ```
 
