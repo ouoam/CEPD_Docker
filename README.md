@@ -238,7 +238,14 @@ docker run -p 8080:80 demo
 
 ```bash
 cd '4. web application'
-docker build -t app -f Dockerfile.latest .
-docker build -t app-alpine -f Dockerfile.alpine-version .
+docker system prune --all --force
+time docker build -t app -f Dockerfile.latest .
+# 1:03.03 minute
+docker system prune --all --force
+time docker build -t app-alpine -f Dockerfile.alpine-version .
+# 1:20.83 minutes
+docker system prune --all --force
+time docker build -t app-multi-stg -f Dockerfile .
+# 24.683 total
 docker image list
 ```
