@@ -215,6 +215,7 @@ exit
 —> ubuntu/nginx
 
 ```bash
+cd '3. web server'
 docker system prune --all --force
 echo "Docker more layer"
 time docker build -t demo -f Dockerfile.more-layers .
@@ -233,33 +234,11 @@ docker run -p 8080:80 demo
 
 1. ดาว์นโหลด [https://github.com/docker/getting-started/archive/refs/heads/master.zip](https://github.com/docker/getting-started/archive/refs/heads/master.zip) และเปิดโปรเดอร์ app ใน code editor ที่ชอบ
 2. สร้างไฟล์ `Dockerfile` ในโฟล์เดอร์เดียวกับที่มีไฟล์ `package.json`
+3. เปิด terminal และใช้คำสั่ง
 
 ```bash
-# ---------------------------------------------------------------------------- #
-#                                    Latest                                    #
-# ---------------------------------------------------------------------------- #
-FROM node:12
-RUN apk add --no-cache python2 g++ make
-WORKDIR /app
-COPY . .
-RUN yarn install --production
-CMD ["node", "src/index.js"]
-EXPOSE 3000
-# ---------------------------------------------------------------------------- #
-#                                    Apline                                    #
-# ---------------------------------------------------------------------------- #
-FROM node:12-alpine
-RUN apk add --no-cache python2 g++ make
-WORKDIR /app
-COPY . .
-RUN yarn install --production
-CMD ["node", "src/index.js"]
-EXPOSE 3000
-```
-
-1. เปิด terminal และใช้คำสั่ง
-
-```bash
-docker build -t getting-started .
-docker run -dp 3000:3000 getting-started
+cd '4. web application'
+docker build -t app -f Dockerfile.latest .
+docker build -t app-alpine -f Dockerfile.alpine-version .
+docker image list
 ```
