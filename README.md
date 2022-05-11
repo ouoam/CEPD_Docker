@@ -93,7 +93,7 @@ Docker จะบรรจุซอฟต์แวร์ลงไปในหน�
     ```bash
     docker logs [OPTIONS] CONTAINER
     # Fetch logs of container
-    docker log -f dev-db
+    docker logs -f dev-db
     ```
     
 - docker ps
