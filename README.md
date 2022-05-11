@@ -160,14 +160,10 @@ Docker จะบรรจุซอฟต์แวร์ลงไปในหน�
 
 Docker จะทำการ Build image จากคำสั่งที่ถูกกำหนดลงใน Dockerfile
 
-[มาสร้าง Docker Image กันเถอะ!. จุดเริ่มต้นการสร้าง Docker Container… | by Patchara Chukiatkajohn | I GEAR GEEK | Medium](https://medium.com/i-gear-geek/%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%99-docker-file-%E0%B9%83%E0%B8%AB%E0%B9%89%E0%B9%84%E0%B8%94%E0%B9%89-docker-image-d2dedd10361e)
-
-[https://gist.github.com/xshot9011/c6d2aed7dd712c0d243019a69f0a9830](https://gist.github.com/xshot9011/c6d2aed7dd712c0d243019a69f0a9830)
-
 วิธีการใช้งาน
 
 ```bash
-cd <to_source_code_dir>
+cd '1. Dockerfile'
 docker build -t web-server .
 docker run -p 8080:8080 web-server
 curl http://localhost:8080
@@ -177,23 +173,11 @@ curl http://localhost:8080
 
 [Postgres - Official Image | Docker Hub](https://hub.docker.com/_/postgres)
 
-```jsx
-# Use postgres/example user/password credentials
-version: '3.1'
-
-services:
-
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: example
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+```bash
+cd '2. Dockercompose'
+docker-compose up
+# Terminate
+docker-compose down
 ```
 
 ## Docker hub
