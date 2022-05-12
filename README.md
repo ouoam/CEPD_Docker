@@ -1,5 +1,3 @@
-# Thana Docker
-
 # Docker
 
 ### What is container ?
