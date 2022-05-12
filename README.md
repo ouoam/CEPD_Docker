@@ -15,68 +15,68 @@ Docker จะบรรจุซอฟต์แวร์ลงไปในหน�
 ### Why should you use docker ?
 
 1. Consistent and Isolate Environment
-    
+
     Container แต่ละตัวมี Environment ที่แยกออกจากกัน ไม่ว่าจะทำงานกี่ครั้งจะได้ผลลัพธ์เหมือนกันเสมอ
-    
+
 2. Rapid Application Deployment
-    
+
     ทำให้การ Deploy application ไวขึ้น เช่น ไม่เสียเวลาในส่วนของการ Boot OS, ไม่ต้อง Set up environment ใหม่ทุกการ Deploy เพราะมีการกำหนดไว้ใน `Dockerfile` หมด, ใช้งานร่วมกับ CI/CD workflow
-    
+
 3. Ensures Scalability & Flexibility
-    
+
     `Dockerfile` เดียวสามารถสร้าง Container ใหม่ได้เรื่อย ๆ รวมถึงการทำ Update version ของ Application
-    
+
 4. Better Portability
-    
+
     ทำงานบน Platform ไหนก็ได้ที่ Support container เช่น Amazon EC2, GCP
-    
+
 5. In-Built Version Control System
-    
+
     สามารถทำการ Rolling back ได้
-    
+
 6. Security
-    
+
     มีการแยก Environment ออกไปจากการทำงานตามปกติ ทำให้ Container แต่ละอันแยกออกจากกันและหากมีปัญหาก็สามารถลบ Container นั้นทิ้งได้เลย
-    
+
 
 # Manipulate with Docker
 
 ## Docker command
 
 - docker pull
-    
+
     ```bash
     docker pull [OPTIONS] NAME[:TAG|@DIGEST]
     # Pull postgres image
     docker pull postgres
     ```
-    
+
 - docker run
-    
+
     ```bash
     docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
     # Run database in 1 command
     docker run --name dev-db -e POSTGRES_PASSWORD=qwerty -d postgres
     ```
-    
+
 - docker stop
-    
+
     ```bash
     docker stop [OPTIONS] CONTAINER [CONTAINER...]
     # Stop the dev-db conatiner
     docker stop dev-db
     ```
-    
+
 - docker start
-    
+
     ```bash
     docker start [OPTIONS] CONTAINER [CONTAINER...]
     # Start the container
     docker start dev-db
     ```
-    
+
 - docker exec
-    
+
     ```bash
     docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
     ls
@@ -87,53 +87,53 @@ Docker จะบรรจุซอฟต์แวร์ลงไปในหน�
     whoami
     exit
     ```
-    
+
 - docker logs
-    
+
     ```bash
     docker logs [OPTIONS] CONTAINER
     # Fetch logs of container
     docker logs -f dev-db
     ```
-    
+
 - docker ps
-    
+
     ```bash
     docker ps [OPTIONS]
     # List container
     docker ps --all
     ```
-    
+
 - docker top
-    
+
     ```bash
     docker top dev-db
     # Display the running processes of a container
     ```
-    
+
 - docker stats
-    
+
     ```bash
     # Show stats for all containers
     docker stats
     ```
-    
+
 - docker images
-    
+
     ```bash
     docker image ls
     ```
-    
+
 - docker rmi
-    
+
     ```bash
     docker rmi IMAGE [IMAGE...]
     docker rmi postgres
     # You will get error ca, container dev-db using this image as ref
     ```
-    
+
 - docker rm
-    
+
     ```bash
     docker rm [OPTIONS] CONTAINER [CONTAINER...]
     docker ps
@@ -141,22 +141,24 @@ Docker จะบรรจุซอฟต์แวร์ลงไปในหน�
     docker ps
     docker rmi postgres
     ```
-    
+
 - docker build
-    
+
     ```bash
     docker build [OPTIONS] PATH | URL | -
     docker build github.com/creack/docker-firefox
     ```
-    
+
 - Cleaning up
-    
+
     ```bash
     docker system prune
     ```
-    
+
 
 ## Dockerfile
+
+[Build your Go image](https://docs.docker.com/language/golang/build-images/)
 
 Docker จะทำการ Build image จากคำสั่งที่ถูกกำหนดลงใน Dockerfile
 
@@ -165,7 +167,7 @@ Docker จะทำการ Build image จากคำสั่งที่ถ
 ```bash
 cd '1. Dockerfile'
 docker build -t web-server .
-docker run -p 8080:8080 web-server
+docker run -it -p 8080:8080 web-server
 curl http://localhost:8080
 ```
 
@@ -189,6 +191,7 @@ Docker เค้าจะมีระบบ registry ที่มีชื่อ
 สามารถ Push Image ที่เรามีขึ้นไปได้ด้วยจาก Dockerfile
 
 ```bash
+cd '1. Dockerfile'
 docker build --tag docker-gs-ping .
 docker tag docker-gs-ping <username>/<repo>
 docker push <username>/<repo>
